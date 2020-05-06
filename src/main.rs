@@ -7,16 +7,19 @@ fn main() {
 
 async fn async_main() -> i32{
     let neg = neg_async(1).await;
+    task::sleep(std::time::Duration::from_secs(2)).await;
     println!("{}", neg);
     let negating = task::spawn(neg_async(2)).await;
+    task::sleep(std::time::Duration::from_secs(2)).await;
     println!("{}", negating);
+    task::sleep(std::time::Duration::from_secs(2)).await;
     neg + negating    
 }
 
 async fn neg_async(f: i32) -> i32 {
     println!("negating for : {}", f);
     task::sleep(std::time::Duration::from_secs(3)).await;
-    println!("Finished sleeping for 3 seconds");
+    println!("Finished sleeping for 3 seconds for {}", f);
     f * -1
 }
 
